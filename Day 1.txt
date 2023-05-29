@@ -1,0 +1,1 @@
+Povezivanje sa bazom, rad sa postman 
