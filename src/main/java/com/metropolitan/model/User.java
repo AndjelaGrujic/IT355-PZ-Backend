@@ -23,20 +23,20 @@ public class User {
     private boolean enabled = true;
 
     //user many roles
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-   // @JsonIgnore
-    private Set<UserRole> userRoles = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//   // @JsonIgnore
+//    private Set<UserRole> userRoles = new HashSet<>();
 
     public User() {
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
+//    public Set<UserRole> getUserRoles() {
+//        return userRoles;
+//    }
+//
+//    public void setUserRoles(Set<UserRole> userRoles) {
+//        this.userRoles = userRoles;
+//    }
 
     public User(Long id, String username, String password, String email, String firstName, String lastName, String profile, boolean enabled) {
         this.id = id;

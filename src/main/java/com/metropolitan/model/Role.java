@@ -13,19 +13,19 @@ public class Role {
     private Long roleId;
     private String roleName;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "role")
-    private Set<UserRole>userRoles=new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+//    private Set<UserRole>userRoles=new HashSet<>();
 
     public Role() {
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
+//    public Set<UserRole> getUserRoles() {
+//        return userRoles;
+//    }
+//
+//    public void setUserRoles(Set<UserRole> userRoles) {
+//        this.userRoles = userRoles;
+//    }
 
     public Role(Long roleId, String roleName) {
         this.roleId = roleId;

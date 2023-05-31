@@ -4,7 +4,7 @@ import com.metropolitan.model.Role;
 import com.metropolitan.model.User;
 import com.metropolitan.model.UserRole;
 import com.metropolitan.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -12,17 +12,20 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
+
 public class UserController {
 
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     //creating user
 
-    @PostMapping("/")
-    public User createUser(@RequestBody User user) throws Exception {
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
 
         Set<UserRole> roles = new HashSet<>();
 
@@ -37,18 +40,18 @@ public class UserController {
 
         roles.add(userRole);
 
-        return this.userService.createUser(user, roles);
+        return ResponseEntity.ok(userService.createUser(user, roles));
     }
 
     @GetMapping("/{username}")
-    public User getUser(@PathVariable("username") String username) {
-        return this.userService.getUser(username);
+    public ResponseEntity<User> getUser(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userService.getUser(username));
     }
 
     //delete by id
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
-        this.userService.deleteUser(userId);
+        userService.deleteUser(userId);
     }
 //update
 
