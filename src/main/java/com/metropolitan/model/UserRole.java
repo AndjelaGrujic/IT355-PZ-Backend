@@ -1,22 +1,25 @@
 package com.metropolitan.model;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 @Entity
 public class UserRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//auto
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userRoleId;
 
     //user
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
     @ManyToOne
     private Role role;
 
+
     public UserRole() {
+
     }
 
     public Long getUserRoleId() {
@@ -43,3 +46,4 @@ public class UserRole {
         this.role = role;
     }
 }
+

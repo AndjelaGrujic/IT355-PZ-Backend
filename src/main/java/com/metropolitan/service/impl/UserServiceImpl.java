@@ -1,56 +1,69 @@
 package com.metropolitan.service.impl;
 
+import com.metropolitan.exception.UserFoundException;
 import com.metropolitan.model.User;
 import com.metropolitan.model.UserRole;
 import com.metropolitan.repository.RoleRepository;
 import com.metropolitan.repository.UserRepository;
 import com.metropolitan.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    @Autowired
+    private RoleRepository roleRepository;
 
-
-    //creating user
     @Override
-    public User createUser(User user, Set<UserRole> userRoles) {
-
-        User local = userRepository.findByUsername(user.getUsername());
+    public User createUser(User user, Set<UserRole> userRoles) throws Exception {
+        User local = this.userRepository.findByUsername(user.getUsername());
         if (local != null) {
-            System.out.println("User exist!!!");
-            throw new RuntimeException("User exist!!!");
-        } else //creating
-        {
+            System.out.println("User already exists");
+            throw new UserFoundException();
+
+        } else {
+
             for (UserRole ur : userRoles) {
                 roleRepository.save(ur.getRole());
             }
-
-//            user.getUserRoles().addAll(userRoles);
-            userRepository.save(user);
+            user.getUserRoles().addAll(userRoles);
+            local = this.userRepository.save(user);
         }
-
-        return user;
+        return local;
     }
 
-    //getting user by username
+
+
     @Override
     public User getUser(String username) {
         return userRepository.findByUsername(username);
     }
 
-    //delete by id
     @Override
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(User user,Long id) {
+        Optional<User> data=userRepository.findById(id);
+        User _user=data.get();
+        _user.setUsername(user.getUsername());
+        return userRepository.save(_user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
+

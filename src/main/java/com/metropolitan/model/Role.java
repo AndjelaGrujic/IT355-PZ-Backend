@@ -1,7 +1,7 @@
 package com.metropolitan.model;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,19 +13,14 @@ public class Role {
     private Long roleId;
     private String roleName;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
-//    private Set<UserRole>userRoles=new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "role")
+    private Set<UserRole> userRoles = new HashSet<>();
+
 
     public Role() {
-    }
 
-//    public Set<UserRole> getUserRoles() {
-//        return userRoles;
-//    }
-//
-//    public void setUserRoles(Set<UserRole> userRoles) {
-//        this.userRoles = userRoles;
-//    }
+    }
 
     public Role(Long roleId, String roleName) {
         this.roleId = roleId;
@@ -48,4 +43,11 @@ public class Role {
         this.roleName = roleName;
     }
 
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 }
