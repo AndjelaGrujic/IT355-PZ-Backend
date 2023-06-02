@@ -1,7 +1,6 @@
 package com.metropolitan.model;
 
 public class JwtResponse {
-
     String token;
 
     public JwtResponse() {
@@ -19,3 +18,4 @@ public class JwtResponse {
         this.token = token;
     }
 }
+

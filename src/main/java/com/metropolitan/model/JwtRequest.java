@@ -1,11 +1,11 @@
 package com.metropolitan.model;
 
 public class JwtRequest {
-
     String username;
     String password;
 
-    public JwtRequest(String token) {
+    public JwtRequest() {
+
     }
 
     public JwtRequest(String username, String password) {
