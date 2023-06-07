@@ -4,8 +4,8 @@ package com.metropolitan.controller;
 import com.metropolitan.configuration.JwtUtil;
 import com.metropolitan.exception.UserFoundException;
 import com.metropolitan.exception.UserNotFoundException;
-import com.metropolitan.model.JwtRequest;
-import com.metropolitan.model.JwtResponse;
+import com.metropolitan.model.dto.JwtRequest;
+import com.metropolitan.model.dto.JwtResponse;
 import com.metropolitan.model.User;
 import com.metropolitan.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +48,11 @@ public class AuthenticateController {
             e.printStackTrace();
             throw new Exception("User not found ");
         }
-
         /////////////authenticate
 
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtils.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
-
-
     }
 
 

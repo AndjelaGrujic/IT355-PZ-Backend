@@ -30,6 +30,8 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Results> results = new HashSet<>();
 
     public User() {
 

@@ -1,6 +1,7 @@
 package com.metropolitan.model.quiz;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.metropolitan.model.Results;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,6 +31,9 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Question> questions = new HashSet<>();
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private Set<Results> results = new HashSet<>();
 
     public Quiz() {
     }
